@@ -23,6 +23,8 @@ describe('<App />', () => {
     ReactDOM.unmountComponentAtNode(div);
   });
 
+
+  
   it('Should have app', () =>  {
     const asd = findByTestAttr(wrapper, 'app');
     expect(asd.length).toBe(1);
