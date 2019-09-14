@@ -24,8 +24,8 @@ describe('<App />', () => {
   });
  
   it('Should have app', () =>  {
-    const asd = findByTestAttr(wrapper, 'app');
-    expect(asd.length).toBe(1);
+    const app = findByTestAttr(wrapper, 'app');
+    expect(app).toHaveLength(1);
   });
 
 });

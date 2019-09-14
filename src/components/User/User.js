@@ -1,7 +1,11 @@
 import React from 'react';
 
 const user = (props) => {
-    return (<p>{props.usr.id}</p>);
+    
+    return (
+    <div>
+        <p>{props.usr.id}</p>
+    </div>);
 } 
 
 export default user;
