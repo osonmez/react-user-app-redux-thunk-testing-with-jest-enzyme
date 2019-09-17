@@ -1,13 +1,36 @@
 import React, { Component } from 'react';
 import classes from './Layout.module.css';
 
-class Layout extends Component{
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
-    render(){
-        return (<div>
-            
-            {this.props.children}
-        </div>);
+class Layout extends Component {
+
+    render() {
+        return (
+            <div className={classes.Layout}>
+                <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+                    <Navbar.Brand href="/users">Users App</Navbar.Brand>
+                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                    <Navbar.Collapse id="responsive-navbar-nav">
+                        <Nav className="mr-auto">
+                            <Nav.Link href="/users">Users</Nav.Link>
+                            <Nav.Link href="/add">Add</Nav.Link>
+                        </Nav>
+                    </Navbar.Collapse>
+                </Navbar>
+                <Container>
+                    <Row className="justify-content-md-center">
+                        <Col>
+                            {this.props.children}
+                        </Col>
+                    </Row>
+
+                </Container>
+            </div>);
     }
 }
 
