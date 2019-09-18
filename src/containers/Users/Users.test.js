@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 
 import Users from './Users';
 import User from '../../components/User/User';
@@ -12,26 +12,43 @@ const testState = {
 
 describe('<Users />', () => {
 
-    let wrapper;
+    describe('Without state', () => {
 
-    beforeEach(() => {
-        wrapper = shallow(<Users /> );
+        let wrapper;
+        beforeEach(() => {
+            wrapper = shallow(<Users />);
+        });
+
+        it('should render without errors', () => {
+            const component = findByTestAttr(wrapper, 'users');
+            expect(component.length).toBe(0);
+        });
     });
 
-    it('should render without errors', () => {
-        const component = wrapper.find('ListGroup');
-        expect(component.length).toBe(1);
+    describe('With state', () => {
+        
+        let wrapper;
+        
+        beforeEach(() => {
+            wrapper = shallow(<Users />);
+            wrapper.setState(testState);
+        });
+
+        it('should have two child user components', () => {
+            expect(wrapper.find(User)).toHaveLength(2);
+        });
+        
+        it('Should have action buttons', () => {
+            expect(wrapper.find('ButtonToolbar')).toHaveLength(2);
+        });
+
+        it('Should have details button', () => {
+            const component = findByTestAttr(wrapper, 'details-button');
+            expect(component).toHaveLength(2);
+        });
+
     });
 
-    it('should render without errors', () => {
-        const component = findByTestAttr(wrapper, 'users');
-        expect(component.length).toBe(1);
-    });
 
-    it('should have two child user components', () => {
-        const wrapper = mount(<Users />);
-        wrapper.setState(testState);
-        expect(wrapper.find(User)).toHaveLength(2);  
-    });
 
 });
