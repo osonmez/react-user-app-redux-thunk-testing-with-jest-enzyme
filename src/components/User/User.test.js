@@ -1,10 +1,8 @@
 import React from 'react';
 import User from './User';
 
-import checkPropTypes from 'check-prop-types';
-
 import { shallow } from 'enzyme';
-import { findByTestAttr } from '../../shared/testUtil';
+import { findByTestAttr, checkProps, findByTestIdAttr } from '../../shared/testUtil';
 import { testUserArray } from '../../shared/testData';
 
 
@@ -32,7 +30,7 @@ describe('<User />', () => {
                     }
                 }
             };
-            const warnings = checkPropTypes(User.propTypes, expectedProps, 'props', User.name);
+            const warnings = checkProps(User, expectedProps);
             expect(warnings).toBeUndefined();
         });
     });
@@ -49,6 +47,12 @@ describe('<User />', () => {
             const component = findByTestAttr(wrapper, 'user');
             expect(component).toHaveLength(1);
         });
+
+        it('Should have username', () => {
+            const component = findByTestAttr(wrapper, 'username');
+            expect(component).toHaveLength(1);
+        })
+
     });
 
     describe('Without props', () => {

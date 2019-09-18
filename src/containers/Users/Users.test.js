@@ -19,6 +19,11 @@ describe('<Users />', () => {
     });
 
     it('should render without errors', () => {
+        const component = wrapper.find('ListGroup');
+        expect(component.length).toBe(1);
+    });
+
+    it('should render without errors', () => {
         const component = findByTestAttr(wrapper, 'users');
         expect(component.length).toBe(1);
     });

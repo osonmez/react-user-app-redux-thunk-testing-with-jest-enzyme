@@ -1,20 +1,25 @@
 import React, { Component } from 'react';
+import ListGroup from 'react-bootstrap/ListGroup'
 
 import User from '../../components/User/User';
+import { testUserArray } from '../../shared/testData';
 
 class Users extends Component {
 
     state = {
-        users: []
+        users: testUserArray
     }
 
     render(){
         return (
-        <div data-test="users">
+        <ListGroup data-test="users">
             {this.state.users.map(user => {
-                return <User key={user.id} usr={user} />
+                return (
+                    <ListGroup.Item key={user.id} >
+                        <User usr={user} />
+                    </ListGroup.Item>);
             })}
-        </div>
+        </ListGroup>
         );
     }
 }

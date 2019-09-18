@@ -7,7 +7,7 @@ const user = (props) => {
     
     return (
     <div data-test="user">
-        <p>{props.usr.name}</p>
+        <p data-test="username">{props.usr.name}</p>
     </div>);
 };
 
