@@ -25,6 +25,8 @@ class Users extends Component {
                             <User usr={user} />
                             <ButtonToolbar>
                                 <Button variant="info" data-test="details-button">Info</Button>
+                                <Button variant="warning" data-test="edit-button">Edit</Button>
+                                <Button variant="danger" data-test="delete-button">Delete</Button>
                             </ButtonToolbar>
                         </ListGroup.Item>);
                 })}
