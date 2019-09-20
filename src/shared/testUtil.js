@@ -1,3 +1,5 @@
+import React from 'react';
+import { shallow } from 'enzyme';
 import checkPropTypes from 'check-prop-types';
 
 export const findByTestAttr = (component, arrt) => {
@@ -10,4 +12,8 @@ export const findByTestIdAttr = (component, arrt) => {
 
 export const checkProps = (component, expectedProps) => {
     return checkPropTypes(component.propTypes, expectedProps, 'props', component.name);
+}
+
+export const setUpShallowWrapper = (TestComponent, testProps={}) => {
+    return shallow(<TestComponent {...testProps} />);
 }
