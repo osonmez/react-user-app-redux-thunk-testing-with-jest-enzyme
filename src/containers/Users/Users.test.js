@@ -7,7 +7,8 @@ import { findByTestAttr } from '../../shared/testUtil';
 import { testUserArray } from '../../shared/testData';
 
 const testState = {
-    users: testUserArray
+    users: testUserArray,
+    showModal:false
 }
 
 describe('<Users />', () => {
@@ -70,6 +71,12 @@ describe('<Users />', () => {
         it('Should have delete text', () => {
             const component = findByTestAttr(wrapper, 'delete-button');
             expect(component.first().text()).toBe('Delete');
+        });
+
+        it('Should click details button', () => {
+            const component = findByTestAttr(wrapper, 'details-button');
+            component.first().simulate('click');
+            expect(wrapper.state().showModal).toBeTruthy();
         });
 
     });

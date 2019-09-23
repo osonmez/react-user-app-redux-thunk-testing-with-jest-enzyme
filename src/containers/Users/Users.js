@@ -10,7 +10,12 @@ import Button from 'react-bootstrap/Button';
 class Users extends Component {
 
     state = {
-        users: null
+        users: null,
+        showModal:false
+    }
+
+    showModalHandler = () => {
+        this.setState({showModal: true});
     }
 
     render() {
@@ -24,7 +29,7 @@ class Users extends Component {
                         <ListGroup.Item key={user.id} >
                             <User usr={user} />
                             <ButtonToolbar>
-                                <Button variant="info" data-test="details-button">Info</Button>
+                                <Button variant="info" data-test="details-button" onClick={this.showModalHandler}>Info</Button>
                                 <Button variant="warning" data-test="edit-button">Edit</Button>
                                 <Button variant="danger" data-test="delete-button">Delete</Button>
                             </ButtonToolbar>
