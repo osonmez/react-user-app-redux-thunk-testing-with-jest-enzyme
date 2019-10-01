@@ -8,7 +8,8 @@ import { testUserArray } from '../../shared/testData';
 
 const testState = {
     users: testUserArray,
-    showModal:false
+    showModal:false,
+    selectedUser: null
 }
 
 describe('<Users />', () => {
@@ -77,6 +78,17 @@ describe('<Users />', () => {
             const component = findByTestAttr(wrapper, 'details-button');
             component.first().simulate('click');
             expect(wrapper.state().showModal).toBeTruthy();
+            expect(wrapper.state().selectedUser).toBeTruthy();
+        });
+
+        it('Should delete a user', () => {
+            const instance = wrapper.instance();
+            const deleteButton = findByTestAttr(wrapper, 'delete-button').first();
+            const spy = jest.spyOn(instance, 'deleteHandler');
+            deleteButton.simulate('click');
+            expect(spy).toHaveBeenCalledWith(testState.users[0].id);
+            expect(wrapper.state().users.length).toBe(1);
+
         });
 
     });

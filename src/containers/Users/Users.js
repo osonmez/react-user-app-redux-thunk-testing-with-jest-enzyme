@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import ListGroup from 'react-bootstrap/ListGroup'
 
 import User from '../../components/User/User';
-import { testUserArray } from '../../shared/testData';
+import Modal from '../../components/UI/Modal/Modal';
+import UserDetails from '../../components/UserDetails/UserDetails';
+
 
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import Button from 'react-bootstrap/Button';
@@ -11,11 +13,21 @@ class Users extends Component {
 
     state = {
         users: null,
-        showModal:false
+        showModal:false,
+        selectedUser: null
     }
 
-    showModalHandler = () => {
-        this.setState({showModal: true});
+    showModalHandler = (user) => {
+        this.setState({showModal: true, selectedUser: user});
+    }
+
+    closeHandler = () => {
+        this.setState({showModal: false, selectedUser: null});
+    }
+
+    deleteHandler = (id) => {
+        const updatedUsers = this.state.users.filter(user => user.id !== id);
+        this.setState({users:updatedUsers});
     }
 
     render() {
@@ -29,16 +41,20 @@ class Users extends Component {
                         <ListGroup.Item key={user.id} >
                             <User usr={user} />
                             <ButtonToolbar>
-                                <Button variant="info" data-test="details-button" onClick={this.showModalHandler}>Info</Button>
+                                <Button variant="info" data-test="details-button" onClick={() => this.showModalHandler(user)}>Info</Button>
                                 <Button variant="warning" data-test="edit-button">Edit</Button>
-                                <Button variant="danger" data-test="delete-button">Delete</Button>
+                                <Button variant="danger" data-test="delete-button" onClick={() => this.deleteHandler(user.id)}>Delete</Button>
                             </ButtonToolbar>
                         </ListGroup.Item>);
                 })}
             </ListGroup>);
         }
 
-        return userList;
+        return (
+            <div>
+                {<Modal title="User" show={this.state.showModal} handleClose={this.closeHandler} ><UserDetails usr={this.state.selectedUser} /></Modal>}
+                {userList}
+            </div>);
     }
 }
 
