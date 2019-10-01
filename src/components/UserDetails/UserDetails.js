@@ -31,7 +31,8 @@ userDetails.propTypes = {
             city: PropTypes.string.isRequired,
             zipcode: PropTypes.string.isRequired
         })
-    })
+    }),
+    isEdit: PropTypes.bool.isRequired
 };
 
 export default userDetails;

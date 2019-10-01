@@ -14,20 +14,25 @@ class Users extends Component {
     state = {
         users: null,
         showModal:false,
+        edit: false,
         selectedUser: null
     }
 
-    showModalHandler = (user) => {
-        this.setState({showModal: true, selectedUser: user});
+    showModalHandler = (user, isEdit = false) => {
+        this.setState({showModal: true, edit: isEdit, selectedUser: user});
     }
 
     closeHandler = () => {
-        this.setState({showModal: false, selectedUser: null});
+        this.setState({showModal: false, edit: false, selectedUser: null});
     }
 
     deleteHandler = (id) => {
         const updatedUsers = this.state.users.filter(user => user.id !== id);
         this.setState({users:updatedUsers});
+    }
+
+    editHandler = (user) => {
+        this.setState({showModal: true, selectedUser: user});
     }
 
     render() {
@@ -42,7 +47,7 @@ class Users extends Component {
                             <User usr={user} />
                             <ButtonToolbar>
                                 <Button variant="info" data-test="details-button" onClick={() => this.showModalHandler(user)}>Info</Button>
-                                <Button variant="warning" data-test="edit-button">Edit</Button>
+                                <Button variant="warning" data-test="edit-button" onClick={() => this.showModalHandler(user, true)}>Edit</Button>
                                 <Button variant="danger" data-test="delete-button" onClick={() => this.deleteHandler(user.id)}>Delete</Button>
                             </ButtonToolbar>
                         </ListGroup.Item>);
@@ -52,7 +57,7 @@ class Users extends Component {
 
         return (
             <div>
-                {<Modal title="User" show={this.state.showModal} handleClose={this.closeHandler} ><UserDetails usr={this.state.selectedUser} /></Modal>}
+                {<Modal title="User" show={this.state.showModal} handleClose={this.closeHandler} ><UserDetails usr={this.state.selectedUser} isEdit={this.state.edit} /></Modal>}
                 {userList}
             </div>);
     }

@@ -5,3 +5,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 husky not committing in windows answer
 https://create-react-app.dev/docs/running-tests#on-your-own-environment
+
+
+https://bambielli.com/til/2018-03-04-directly-test-react-component-methods/

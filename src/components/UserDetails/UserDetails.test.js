@@ -21,7 +21,8 @@ describe('<UserDetails />', () => {
                         city: '',
                         zipcode: ''
                     }
-                }
+                },
+                isEdit: false
             };
             const warning = checkProps(UserDetails, expectedProps);
             expect(warning).toBeUndefined();
@@ -35,7 +36,7 @@ describe('<UserDetails />', () => {
 
         beforeEach(() => {
             testUser = testUserArray[0];
-            wrapper = setUpShallowWrapper(UserDetails, {usr : testUser});
+            wrapper = setUpShallowWrapper(UserDetails, {usr : testUser, isEdit: false});
         });
 
         it('Should have id', () => {            

@@ -81,6 +81,15 @@ describe('<Users />', () => {
             expect(wrapper.state().selectedUser).toBeTruthy();
         });
 
+        it('Should click edit button', () => {
+            const instance = wrapper.instance();
+            const editButton = findByTestAttr(wrapper, 'edit-button').first();
+            const spy = jest.spyOn(instance, 'showModalHandler');
+            editButton.simulate('click');
+            expect(spy).toHaveBeenCalledWith(testState.users[0], true);
+            expect(wrapper.state().selectedUser).toBe(testState.users[0]);
+        });
+
         it('Should delete a user', () => {
             const instance = wrapper.instance();
             const deleteButton = findByTestAttr(wrapper, 'delete-button').first();
@@ -90,6 +99,8 @@ describe('<Users />', () => {
             expect(wrapper.state().users.length).toBe(1);
 
         });
+
+        
 
     });
 
