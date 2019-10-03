@@ -7,21 +7,21 @@ const userForm = (props) => {
     if (!props.usr) return null;
     return (
         <Form>
-            <Form.Control data-testid="detail-id" size="sm" type="text" disabled value={props.usr.id}  />
+            <Form.Control data-testid="id" size="sm" type="text" disabled value={props.usr.id}  />
             <br />
-            <Form.Control data-testid="detail-name" size="sm" type="text" disabled value={props.usr.name}  />
+            <Form.Control data-testid="name" size="sm" type="text" disabled value={props.usr.name}  />
             <br />
-            <Form.Control data-testid="detail-username" size="sm" type="text" disabled value={props.usr.username}  />
+            <Form.Control data-testid="username" size="sm" type="text" disabled value={props.usr.username}  />
             <br />
-            <Form.Control data-testid="detail-email" size="sm" type="text" disabled value={props.usr.email}  />
+            <Form.Control data-testid="email" size="sm" type="text" disabled value={props.usr.email}  />
             <br />
-            <Form.Control data-testid="detail-street" size="sm" type="text" disabled value={props.usr.address.street}  />
+            <Form.Control data-testid="street" size="sm" type="text" disabled value={props.usr.address.street}  />
             <br />
-            <Form.Control data-testid="detail-suite" size="sm" type="text" disabled value={props.usr.address.suite}  />
+            <Form.Control data-testid="suite" size="sm" type="text" disabled value={props.usr.address.suite}  />
             <br />
-            <Form.Control data-testid="detail-city" size="sm" type="text" disabled value={props.usr.address.city}  />
+            <Form.Control data-testid="city" size="sm" type="text" disabled value={props.usr.address.city}  />
             <br />
-            <Form.Control data-testid="detail-zipcode" size="sm" type="text" disabled value={props.usr.address.zipcode}  />
+            <Form.Control data-testid="zipcode" size="sm" type="text" disabled value={props.usr.address.zipcode}  />
             <br />
         </Form>
     );

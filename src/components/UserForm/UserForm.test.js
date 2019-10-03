@@ -40,42 +40,42 @@ describe('<UserForm />', () => {
         });
 
         it('Should have id', () => {            
-            const component = findByTestIdAttr(wrapper, 'detail-id');            
+            const component = findByTestIdAttr(wrapper, 'id');            
             expect(component.prop('value')).toBe(testUser.id);
         });
 
         it('Should have name', () => {            
-            const component = findByTestIdAttr(wrapper, 'detail-name');            
+            const component = findByTestIdAttr(wrapper, 'name');            
             expect(component.prop('value')).toBe(testUser.name);
         });
 
         it('Should have username', () => {            
-            const component = findByTestIdAttr(wrapper, 'detail-username');            
+            const component = findByTestIdAttr(wrapper, 'username');            
             expect(component.prop('value')).toBe(testUser.username);
         });
 
         it('Should have email', () => {            
-            const component = findByTestIdAttr(wrapper, 'detail-email');            
+            const component = findByTestIdAttr(wrapper, 'email');            
             expect(component.prop('value')).toBe(testUser.email);
         });
 
         it('Should have street', () => {            
-            const component = findByTestIdAttr(wrapper, 'detail-street');            
+            const component = findByTestIdAttr(wrapper, 'street');            
             expect(component.prop('value')).toBe(testUser.address.street);
         });
 
         it('Should have suite', () => {            
-            const component = findByTestIdAttr(wrapper, 'detail-suite');            
+            const component = findByTestIdAttr(wrapper, 'suite');            
             expect(component.prop('value')).toBe(testUser.address.suite);
         });
 
         it('Should have city', () => {            
-            const component = findByTestIdAttr(wrapper, 'detail-city');            
+            const component = findByTestIdAttr(wrapper, 'city');            
             expect(component.prop('value')).toBe(testUser.address.city);
         });
 
         it('Should have zipcode', () => {            
-            const component = findByTestIdAttr(wrapper, 'detail-zipcode');            
+            const component = findByTestIdAttr(wrapper, 'zipcode');            
             expect(component.prop('value')).toBe(testUser.address.zipcode);
         });
 
