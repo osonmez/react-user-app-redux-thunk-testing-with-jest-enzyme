@@ -18,8 +18,7 @@ const modal = (props) => {
     );
 };
 modal.propTypes = {
-    title: PropTypes.string.isRequired,
-    children:PropTypes.node.isRequired
+    title: PropTypes.string.isRequired
 }
 
 export default modal;

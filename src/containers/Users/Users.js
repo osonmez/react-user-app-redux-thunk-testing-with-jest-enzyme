@@ -3,7 +3,10 @@ import ListGroup from 'react-bootstrap/ListGroup'
 
 import User from '../../components/User/User';
 import Modal from '../../components/UI/Modal/Modal';
-import UserDetails from '../../components/UserDetails/UserDetails';
+import UserForm from '../../components/UserForm/UserForm';
+import UserInfo from '../../components/UserInfo/UserInfo';
+//import { testUserArray } from '../../shared/testData';
+
 
 
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
@@ -38,6 +41,12 @@ class Users extends Component {
     render() {
 
         let userList = null;
+        let modalContent = null;
+
+        if(this.state.selectedUser){
+            modalContent = this.state.edit ? <UserForm usr={this.state.selectedUser} isEdit={this.state.edit} /> : <UserInfo usr={this.state.selectedUser} />;
+        }
+        
 
         if (this.state.users) {
             userList = (<ListGroup data-test="users">
@@ -57,7 +66,9 @@ class Users extends Component {
 
         return (
             <div>
-                {<Modal title="User" show={this.state.showModal} handleClose={this.closeHandler} ><UserDetails usr={this.state.selectedUser} isEdit={this.state.edit} /></Modal>}
+                {<Modal title="User" show={this.state.showModal} handleClose={this.closeHandler} >
+                    {modalContent}
+                    </Modal>}
                 {userList}
             </div>);
     }

@@ -1,10 +1,10 @@
 import React from 'react';
 
-import UserDetails from './UserDetails';
+import UserForm from './UserForm';
 import { checkProps, setUpShallowWrapper, findByTestIdAttr } from '../../shared/testUtil';
 import { testUserArray } from '../../shared/testData';
 
-describe('<UserDetails />', () => {
+describe('<UserForm />', () => {
 
     describe('Check props', () => {
 
@@ -24,7 +24,7 @@ describe('<UserDetails />', () => {
                 },
                 isEdit: false
             };
-            const warning = checkProps(UserDetails, expectedProps);
+            const warning = checkProps(UserForm, expectedProps);
             expect(warning).toBeUndefined();
         });
 
@@ -36,7 +36,7 @@ describe('<UserDetails />', () => {
 
         beforeEach(() => {
             testUser = testUserArray[0];
-            wrapper = setUpShallowWrapper(UserDetails, {usr : testUser, isEdit: false});
+            wrapper = setUpShallowWrapper(UserForm, {usr : testUser, isEdit: false});
         });
 
         it('Should have id', () => {            
