@@ -44,7 +44,7 @@ class Users extends Component {
         let modalContent = null;
 
         if(this.state.selectedUser){
-            modalContent = this.state.edit ? <UserForm usr={this.state.selectedUser} isEdit={this.state.edit} /> : <UserInfo usr={this.state.selectedUser} />;
+            modalContent = this.state.edit ? <UserForm usr={this.state.selectedUser} isEdit={this.state.edit} submit={() => {console.log('submit')}}/> : <UserInfo usr={this.state.selectedUser} />;
         }
         
 

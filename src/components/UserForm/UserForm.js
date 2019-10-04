@@ -1,6 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Form, { Row } from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/Col';
 
 const userForm = (props) => {
@@ -64,10 +66,30 @@ const userForm = (props) => {
                     <Form.Control placeholder="Zipcode" data-testid="zipcode" size="sm" type="text" value={props.usr.address.zipcode} />
                 </Col>
             </Form.Group>
+            <Button variant="primary" data-testid="submit-button" type="submit" onClick={props.submit}>
+                Submit
+            </Button>
         </Form>
     );
 };
+userForm.propTypes = {
+    usr: PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string,
+        username: PropTypes.string,
+        email: PropTypes.string,
+        address: PropTypes.shape({
+            street: PropTypes.string,
+            suite: PropTypes.string,
+            city: PropTypes.string,
+            zipcode: PropTypes.string
+        })
+    }),
+    edit: PropTypes.bool,
+    submit: PropTypes.func.isRequired
+}
 userForm.defaultProps = {
+    usr: {},
     isEdit: false
 };
 

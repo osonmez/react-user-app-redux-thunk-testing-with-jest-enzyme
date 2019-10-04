@@ -22,7 +22,8 @@ describe('<UserForm />', () => {
                         zipcode: ''
                     }
                 },
-                isEdit: false
+                isEdit: false,
+                submit: () => {}
             };
             const warning = checkProps(UserForm, expectedProps);
             expect(warning).toBeUndefined();
@@ -33,10 +34,12 @@ describe('<UserForm />', () => {
     describe('Render', () => {
         let wrapper;
         let testUser;
+        let mockFunc;
 
         beforeEach(() => {
+            mockFunc = jest.fn();
             testUser = testUserArray[0];
-            wrapper = setUpShallowWrapper(UserForm, {usr : testUser, isEdit: false});
+            wrapper = setUpShallowWrapper(UserForm, {usr : testUser, isEdit: false, submit: mockFunc});
         });
 
         it('Should have name', () => {            
@@ -72,6 +75,12 @@ describe('<UserForm />', () => {
         it('Should have zipcode', () => {            
             const component = findByTestIdAttr(wrapper, 'zipcode');            
             expect(component.prop('value')).toBe(testUser.address.zipcode);
+        });
+
+        it('Should click submit button', () => {            
+            const component = findByTestIdAttr(wrapper, 'submit-button');
+            component.simulate('click');
+            expect(mockFunc.mock.calls.length).toBe(1);
         });
 
     });
