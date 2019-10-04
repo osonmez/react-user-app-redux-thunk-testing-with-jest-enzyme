@@ -45,12 +45,12 @@ describe('<Users />', () => {
         });
 
         it('Should have details button', () => {
-            const component = findByTestAttr(wrapper, 'details-button');
+            const component = findByTestAttr(wrapper, 'info-button');
             expect(component.exists()).toBeTruthy();
         });
 
         it('Should have details text', () => {
-            const component = findByTestAttr(wrapper, 'details-button');
+            const component = findByTestAttr(wrapper, 'info-button');
             expect(component.first().text()).toBe('Info');
         });
 
@@ -75,7 +75,7 @@ describe('<Users />', () => {
         });
 
         it('Should click details button', () => {
-            const component = findByTestAttr(wrapper, 'details-button');
+            const component = findByTestAttr(wrapper, 'info-button');
             component.first().simulate('click');
             expect(wrapper.state().showModal).toBeTruthy();
             expect(wrapper.state().selectedUser).toBeTruthy();

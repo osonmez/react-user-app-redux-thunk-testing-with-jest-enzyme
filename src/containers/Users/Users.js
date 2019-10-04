@@ -5,7 +5,7 @@ import User from '../../components/User/User';
 import Modal from '../../components/UI/Modal/Modal';
 import UserForm from '../../components/UserForm/UserForm';
 import UserInfo from '../../components/UserInfo/UserInfo';
-//import { testUserArray } from '../../shared/testData';
+import { testUserArray } from '../../shared/testData';
 
 
 
@@ -55,7 +55,7 @@ class Users extends Component {
                         <ListGroup.Item key={user.id} >
                             <User usr={user} />
                             <ButtonToolbar>
-                                <Button variant="info" data-test="details-button" onClick={() => this.showModalHandler(user)}>Info</Button>
+                                <Button variant="info" data-test="info-button" onClick={() => this.showModalHandler(user)}>Info</Button>
                                 <Button variant="warning" data-test="edit-button" onClick={() => this.showModalHandler(user, true)}>Edit</Button>
                                 <Button variant="danger" data-test="delete-button" onClick={() => this.deleteHandler(user.id)}>Delete</Button>
                             </ButtonToolbar>

@@ -39,11 +39,6 @@ describe('<UserForm />', () => {
             wrapper = setUpShallowWrapper(UserForm, {usr : testUser, isEdit: false});
         });
 
-        it('Should have id', () => {            
-            const component = findByTestIdAttr(wrapper, 'id');            
-            expect(component.prop('value')).toBe(testUser.id);
-        });
-
         it('Should have name', () => {            
             const component = findByTestIdAttr(wrapper, 'name');            
             expect(component.prop('value')).toBe(testUser.name);
