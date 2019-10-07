@@ -98,12 +98,8 @@ describe('<Users />', () => {
             expect(spy).toHaveBeenCalledWith(testState.users[0].id);
             expect(wrapper.state().users.length).toBe(1);
 
-        });
-
-        
+        });        
 
     });
-
-
 
 });
