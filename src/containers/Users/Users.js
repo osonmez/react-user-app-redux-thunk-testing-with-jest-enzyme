@@ -5,7 +5,7 @@ import User from '../../components/User/User';
 import Modal from '../../components/UI/Modal/Modal';
 import UserForm from '../../components/UserForm/UserForm';
 import UserInfo from '../../components/UserInfo/UserInfo';
-//import { testUserArray } from '../../shared/testData';
+import { testUserArray } from '../../shared/testData';
 
 
 
@@ -15,7 +15,7 @@ import Button from 'react-bootstrap/Button';
 class Users extends Component {
 
     state = {
-        users: null,
+        users: testUserArray,
         showModal:false,
         edit: false,
         selectedUser: null
@@ -44,7 +44,7 @@ class Users extends Component {
         let modalContent = null;
 
         if(this.state.selectedUser){
-            modalContent = this.state.edit ? <UserForm usr={this.state.selectedUser} isEdit={this.state.edit} submit={(e) => {e.preventDefault()}}/> : <UserInfo usr={this.state.selectedUser} />;
+            modalContent = this.state.edit ? <UserForm usr={this.state.selectedUser} submit={(e) => {e.preventDefault()}}/> : <UserInfo usr={this.state.selectedUser} />;
         }
         
 

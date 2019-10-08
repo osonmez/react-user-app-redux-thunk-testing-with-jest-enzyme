@@ -31,7 +31,7 @@ describe('<UserForm />', () => {
 
     });
 
-    describe('Render', () => {
+    describe('Render user edit', () => {
         let wrapper;
         let testUser;
         let mockFunc;
@@ -39,10 +39,10 @@ describe('<UserForm />', () => {
         beforeEach(() => {
             mockFunc = jest.fn();
             testUser = testUserArray[0];
-            wrapper = setUpShallowWrapper(UserForm, {usr : testUser, isEdit: false, submit: mockFunc});
+            wrapper = setUpShallowWrapper(UserForm, {usr : testUser, isEdit: false, submit: mockFunc}).dive();
         });
 
-        it('Should have name', () => {            
+        it('Should have name', () => {          
             const component = findByTestIdAttr(wrapper, 'name');            
             expect(component.prop('value')).toBe(testUser.name);
         });
@@ -77,11 +77,24 @@ describe('<UserForm />', () => {
             expect(component.prop('value')).toBe(testUser.address.zipcode);
         });
 
-        it('Should click submit button', () => {            
-            const component = findByTestIdAttr(wrapper, 'submit-button');
-            component.simulate('click');
-            expect(mockFunc.mock.calls.length).toBe(1);
+    });
+
+    describe('Render user add', () => {
+        let wrapper;
+        let testUser;
+        let mockFunc;
+
+        beforeEach(() => {
+            mockFunc = jest.fn();
+            testUser = testUserArray[0];
+            wrapper = setUpShallowWrapper(UserForm, {submit: mockFunc}).dive();
         });
+
+        it('Should have empty name', () => {      
+            const component = findByTestIdAttr(wrapper, 'name');            
+            expect(component.prop('value')).toBe('');
+        });
+
 
     });
 

@@ -12,6 +12,12 @@ const testState = {
     selectedUser: null
 }
 
+const emptyTestState = {
+    users: null,
+    showModal:false,
+    selectedUser: null
+}
+
 describe('<Users />', () => {
 
     describe('Without state', () => {
@@ -19,6 +25,7 @@ describe('<Users />', () => {
         let wrapper;
         beforeEach(() => {
             wrapper = shallow(<Users />);
+            wrapper.setState(emptyTestState);
         });
 
         it('should render without errors', () => {
