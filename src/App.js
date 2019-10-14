@@ -3,6 +3,8 @@ import './App.css';
 
 import Layout from './hoc/Layout/Layout';
 import Users from './containers/Users/Users';
+import AddUser from './containers/AddUser/AddUser';
+import { BrowserRouter } from 'react-router-dom';
 
 class App extends Component {
 
@@ -10,11 +12,14 @@ class App extends Component {
   render() {
 
     return (
-      <div className="App" data-test="app">
-        <Layout>
-          <Users />
-        </Layout>
-      </div>
+      <BrowserRouter>
+        <div className="App" data-test="app">
+          <Layout>
+            <Users />
+            <AddUser />
+          </Layout>
+        </div>
+      </BrowserRouter>
     );
   }
 }

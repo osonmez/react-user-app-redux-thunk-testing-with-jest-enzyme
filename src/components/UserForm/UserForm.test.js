@@ -22,7 +22,6 @@ describe('<UserForm />', () => {
                         zipcode: ''
                     }
                 },
-                isEdit: false,
                 submit: () => {}
             };
             const warning = checkProps(UserForm, expectedProps);
