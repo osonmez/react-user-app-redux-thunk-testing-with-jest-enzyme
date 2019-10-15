@@ -7,6 +7,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { withRouter } from "react-router";
+import { NavLink } from 'react-router-dom';
 
 class Layout extends Component {
 
@@ -20,8 +21,8 @@ class Layout extends Component {
                         <Nav 
                         className="mr-auto" 
                         activeKey={this.props.location.pathname}>
-                            <Nav.Link href="/">Users</Nav.Link>
-                            <Nav.Link href="/add">Add</Nav.Link>
+                            <Nav.Link as={NavLink} to="/">Users</Nav.Link>
+                            <Nav.Link as={NavLink} to="/add">Add</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>

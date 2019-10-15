@@ -1,11 +1,12 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import UserForm from '../../components/UserForm/UserForm';
 
 class AddUser extends Component {
 
     render() {
         return (
             <div>
-                Add User
+                <UserForm submit={(e) => {e.preventDefault()}}/>
             </div>
         )
     }
