@@ -6,6 +6,7 @@ import Nav from 'react-bootstrap/Nav';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { withRouter } from "react-router";
 
 class Layout extends Component {
 
@@ -16,8 +17,10 @@ class Layout extends Component {
                     <Navbar.Brand href="/users">Users App</Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
-                        <Nav className="mr-auto">
-                            <Nav.Link href="/users">Users</Nav.Link>
+                        <Nav 
+                        className="mr-auto" 
+                        activeKey={this.props.location.pathname}>
+                            <Nav.Link href="/">Users</Nav.Link>
                             <Nav.Link href="/add">Add</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
@@ -34,4 +37,4 @@ class Layout extends Component {
     }
 }
 
-export default Layout;
+export default withRouter(Layout);
