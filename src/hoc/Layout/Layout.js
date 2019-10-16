@@ -15,7 +15,7 @@ class Layout extends Component {
         return (
             <div className={classes.Layout}>
                 <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-                    <Navbar.Brand href="/users">Users App</Navbar.Brand>
+                    <Navbar.Brand as={NavLink} to="/">Users App</Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav 
