@@ -35,9 +35,9 @@ const userForm = (props) => {
     return (
         <Formik
             validationSchema={schema}
-            onSubmit={fields => {
+            onSubmit={(values, formikBag) => {
                 //alert('SUCCESS!! :-)\n\n' + JSON.stringify(fields, null, 4))
-                props.submit(fields);
+                props.submit(values);
             }}
             validateOnChange={true}
             validateOnBlur={true}

@@ -16,26 +16,44 @@ class Users extends Component {
 
     state = {
         users: testUserArray,
-        showModal:false,
+        showModal: false,
         edit: false,
         selectedUser: null
     }
 
     showModalHandler = (user, isEdit = false) => {
-        this.setState({showModal: true, edit: isEdit, selectedUser: user});
+        this.setState({ showModal: true, edit: isEdit, selectedUser: user });
     }
 
     closeHandler = () => {
-        this.setState({showModal: false, edit: false, selectedUser: null});
+        this.setState({ showModal: false, edit: false, selectedUser: null });
     }
 
     deleteHandler = (id) => {
         const updatedUsers = this.state.users.filter(user => user.id !== id);
-        this.setState({users:updatedUsers});
+        this.setState({ users: updatedUsers });
     }
 
     editHandler = (user) => {
-        this.setState({showModal: true, selectedUser: user});
+        const updatedUsers = this.state.users.map(u => {
+            if (u.id === this.state.selectedUser.id) {
+                return {
+                    id: u.id,
+                    name: user.name,
+                    username: user.username,
+                    email: user.email,
+                    address: {
+                        street: user.street,
+                        suite: user.suite,
+                        city: user.city,
+                        zipcode: user.zipcode
+                    }
+                }
+            }
+            return u;
+        });
+        console.log(updatedUsers);
+        this.setState({ showModal: false, users: updatedUsers });
     }
 
     render() {
@@ -43,10 +61,10 @@ class Users extends Component {
         let userList = null;
         let modalContent = null;
 
-        if(this.state.selectedUser){
-            modalContent = this.state.edit ? <UserForm usr={this.state.selectedUser} submit={(e) => {e.preventDefault()}}/> : <UserInfo usr={this.state.selectedUser} />;
+        if (this.state.selectedUser) {
+            modalContent = this.state.edit ? <UserForm usr={this.state.selectedUser} submit={this.editHandler} /> : <UserInfo usr={this.state.selectedUser} />;
         }
-        
+
 
         if (this.state.users) {
             userList = (<ListGroup data-test="users">
@@ -68,7 +86,7 @@ class Users extends Component {
             <div>
                 {<Modal title="User" show={this.state.showModal} handleClose={this.closeHandler} >
                     {modalContent}
-                    </Modal>}
+                </Modal>}
                 {userList}
             </div>);
     }
