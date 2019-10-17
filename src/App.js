@@ -4,7 +4,8 @@ import './App.css';
 import Layout from './hoc/Layout/Layout';
 import Users from './containers/Users/Users';
 import AddUser from './containers/AddUser/AddUser';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 class App extends Component {
 
