@@ -9,16 +9,25 @@ export const fetchUsersStarted = () => {
 
 export const fetchUsersSuccess = (users) => {
     return {
-        type: actionTypes.FETCH_USERS_SUCCESS
+        type: actionTypes.FETCH_USERS_SUCCESS,
+        users: users
     }
 };
 
-export const fetchUsersFailed = () => {
+export const fetchUsersFailed = (error) => {
     return {
-        type: actionTypes.FETCH_USERS_FAILED
+        type: actionTypes.FETCH_USERS_FAILED,
+        error: error
     }
 };
 
 export const fetchUsers = () => {
-      
+      return dispatch => {
+
+          dispatch(fetchUsersStarted());
+
+          axios.get('http://jsonplaceholder.typicode.com/users')
+          .then(res => dispatch(fetchUsersSuccess(res.data)))
+          .catch(err => dispatch(fetchUsersFailed(err)));
+      };
 };
