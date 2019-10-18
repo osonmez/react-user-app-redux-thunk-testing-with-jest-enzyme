@@ -7,6 +7,7 @@ describe('User Reducer', () => {
         const iState = userReducer(undefined, {});
         expect(iState).toStrictEqual({
             users: [],
+            loading:false,
             edit: false,
             selectedUser: null
         });

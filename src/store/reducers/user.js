@@ -2,6 +2,7 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
     users: [],
+    loading:false,
     edit: false,
     selectedUser: null
 };
