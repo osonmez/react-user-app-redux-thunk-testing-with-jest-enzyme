@@ -7,8 +7,6 @@ import UserForm from '../../components/UserForm/UserForm';
 import UserInfo from '../../components/UserInfo/UserInfo';
 import { testUserArray } from '../../shared/testData';
 
-
-
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import Button from 'react-bootstrap/Button';
 
