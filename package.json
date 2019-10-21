@@ -50,6 +50,7 @@
   },
   "devDependencies": {
     "check-prop-types": "^1.1.2",
-    "husky": "^3.0.5"
+    "husky": "^3.0.5",
+    "moxios": "^0.4.0"
   }
 }
