@@ -5,6 +5,7 @@ import { applyMiddleware, createStore } from 'redux';
 import { middlewares, rootReducer } from '../store';
 
 
+
 export const findByTestAttr = (component, arrt) => {
     return component.find(`[data-test="${arrt}"]`);
 };
@@ -21,6 +22,6 @@ export const setUpShallowWrapper = (TestComponent, testProps={}) => {
     return shallow(<TestComponent {...testProps} />);
 };
 
-export const createTestStore = (initialState) => {
-    return createStore(rootReducer, initialState, applyMiddleware(...middlewares));
+export const createTestStore = () => {
+    return createStore(rootReducer, applyMiddleware(...middlewares));
 };
