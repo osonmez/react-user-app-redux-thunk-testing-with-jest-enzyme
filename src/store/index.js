@@ -5,7 +5,7 @@ import userReducer from './reducers/user';
 export const middlewares = [thunk];
 
 export const rootReducer = combineReducers({
-    users: userReducer
+    user: userReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(...middlewares));

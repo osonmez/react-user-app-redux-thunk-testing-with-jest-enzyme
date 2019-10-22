@@ -7,52 +7,118 @@ import { middlewares, rootReducer } from '../store';
 
 const mockStore = configureMockStore(middlewares)
 
-describe('fetch users', () => {
+describe('Fetch users', () => {
 
-    beforeEach(() => {
-        moxios.install();
+    describe('Action calls', () => {
+
+        beforeEach(() => {
+            moxios.install();
+        });
+
+        afterEach(() => {
+            moxios.uninstall();
+        });
+
+        it('Should call FETCH_USERS_START and FETCH_USERS_SUCCESS actions', () => {
+            const testStore = mockStore();
+
+            moxios.wait(() => {
+                const request = moxios.requests.mostRecent();
+                request.respondWith({
+                    status: 200,
+                    response: testUserArray
+                });
+            });
+
+            const expectedActions = [
+                userActions.fetchUsersStarted(),
+                userActions.fetchUsersSuccess(testUserArray)
+            ]
+
+            return testStore.dispatch(userActions.fetchUsers()).then(() => {
+                expect(testStore.getActions()).toStrictEqual(expectedActions);
+            });
+
+        });
+
+        it('Should call FETCH_USERS_START and FETCH_USERS_FAIL actions', () => {
+            const testStore = mockStore();
+
+            const errResp = {
+                status: 422,
+                response: { message: 'problem' },
+            };
+
+            moxios.wait(() => {
+                const request = moxios.requests.mostRecent();
+                request.reject(errResp);
+            });
+
+            const expectedActions = [
+                userActions.fetchUsersStarted(),
+                userActions.fetchUsersFailed({
+                    response: {
+                        data: undefined,
+                        message: "problem",
+                    },
+                    status: 422
+                })
+            ]
+
+            return testStore.dispatch(userActions.fetchUsers()).then(() => {
+                expect(testStore.getActions()).toEqual(expectedActions);
+            });
+
+        });
+
     });
 
-    afterEach(() => {
-        moxios.uninstall();
-    });
+    describe('State changes', () => {
 
-    it('Store is updated correctly', () => {
-        const testStore = createTestStore();
+        beforeEach(() => {
+            moxios.install();
+        });
 
-        moxios.wait(() => {
-            const request = moxios.requests.mostRecent();
-            request.respondWith({
-                status:200,
-                response: testUserArray
+        afterEach(() => {
+            moxios.uninstall();
+        });
+
+        it('should update store correctly in success case', () => {
+            const testStore = createTestStore();
+
+            moxios.wait(() => {
+                const request = moxios.requests.mostRecent();
+                request.respondWith({
+                    status: 200,
+                    response: testUserArray
+                });
+            });
+
+            return testStore.dispatch(userActions.fetchUsers()).then(() => {
+                const newState = testStore.getState();
+                expect(newState.user.users).toStrictEqual(testUserArray);
             });
         });
 
-        return testStore.dispatch(userActions.fetchUsers()).then(() => {
-            const newState = testStore.getState();
-            console.log(newState);
-            expect(newState.users.users).toStrictEqual(testUserArray);
-        });
+        it('should update store correctly in fail case', () => {
+            const testStore = createTestStore();
 
-    });
+            const errResp = {
+                status: 422,
+                response: { message: 'problem' },
+            };
 
-    /*it('Store is updated correctly', () => {
-        const testStore = mockStore();
+            moxios.wait(() => {
+                const request = moxios.requests.mostRecent();
+                request.reject(errResp);
+            });
 
-        moxios.wait(() => {
-            const request = moxios.requests.mostRecent();
-            request.respondWith({
-                status:200,
-                response: testUserArray
+            return testStore.dispatch(userActions.fetchUsers()).then(() => {
+                const newState = testStore.getState();
+                expect(newState.user.error.response.message).toBe(errResp.response.message);
             });
         });
 
-        return testStore.dispatch(userActions.fetchUsers()).then(() => {
-            const newState = testStore.getState();
-            console.log(newState);
-            expect(newState.users.users).toStrictEqual(testUserArray);
-        });
-
-    });*/
+    });
 
 });

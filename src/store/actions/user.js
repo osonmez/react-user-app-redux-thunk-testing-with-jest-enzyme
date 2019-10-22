@@ -16,7 +16,7 @@ export const fetchUsersSuccess = (users) => {
 
 export const fetchUsersFailed = (error) => {
     return {
-        type: actionTypes.FETCH_USERS_FAILED,
+        type: actionTypes.FETCH_USERS_FAIL,
         error: error
     }
 };
