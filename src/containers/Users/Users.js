@@ -13,14 +13,6 @@ import * as userActions from '../../store/actions/user';
 
 export class Users extends Component {
 
-    showModalHandler = (user, isEdit = false) => {
-        this.setState({ showModal: true, edit: isEdit, selectedUser: user });
-    }
-
-    closeHandler = () => {
-       this.props.showUserInfo(null);
-    }
-
     deleteHandler = (id) => {
         const updatedUsers = this.state.users.filter(user => user.id !== id);
         this.setState({ users: updatedUsers });
@@ -70,8 +62,8 @@ export class Users extends Component {
                         <ListGroup.Item key={user.id} >
                             <User usr={user} />
                             <ButtonToolbar>
-                                <Button variant="info" data-test="info-button" onClick={() => this.props.showUserInfo(user)}>Info</Button>
-                                <Button variant="warning" data-test="edit-button" onClick={() => this.showModalHandler(user, true)}>Edit</Button>
+                                <Button variant="info" data-test="info-button" onClick={() => this.props.showUser(user, false)}>Info</Button>
+                                <Button variant="warning" data-test="edit-button" onClick={() => this.props.showUser(user, true)}>Edit</Button>
                                 <Button variant="danger" data-test="delete-button" onClick={() => this.deleteHandler(user.id)}>Delete</Button>
                             </ButtonToolbar>
                         </ListGroup.Item>);
@@ -81,7 +73,7 @@ export class Users extends Component {
 
         return (
             <div>
-                {<Modal title="User" show={showModal} handleClose={this.closeHandler} >
+                {<Modal title="User" show={showModal} handleClose={this.props.hideUser} >
                     {modalContent}
                 </Modal>}
                 {userList}
@@ -102,7 +94,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         fetchUsers: () => dispatch(userActions.fetchUsers()),
-        showUserInfo: (selectedUser) => dispatch(userActions.showUserInfo(selectedUser))
+        showUser: (selectedUser, edit) => dispatch(userActions.showUser(selectedUser, edit)),
+        hideUser: () => dispatch(userActions.hideUser())
     }
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Users);

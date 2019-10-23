@@ -3,5 +3,5 @@ export const FETCH_USERS_START = 'FETCH_USERS_START';
 export const FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS';
 export const FETCH_USERS_FAIL = 'FETCH_USERS_FAIL';
 
-export const SHOW_USER_INFO = 'SHOW_USER_INFO';
-export const SHOW_USER_EDIT = 'SHOW_USER_EDIT';
+export const SHOW_USER = 'SHOW_USER';
+export const HIDE_USER = 'HIDE_USER';

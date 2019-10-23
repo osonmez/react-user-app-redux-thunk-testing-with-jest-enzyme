@@ -13,7 +13,8 @@ describe('<Users />', () => {
         let wrapper;
         beforeEach(() => {
             const props = {
-                fetchUsers: () => {}
+                fetchUsers: jest.fn(),
+                showUser: jest.fn(user => {} )
             }
             wrapper = shallow(<Users {...props} />);
         });
@@ -31,10 +32,12 @@ describe('<Users />', () => {
             ...testState,
             users: testUserArray,
             fetchUsers: jest.fn(),
-            showUserInfo: jest.fn(user => {} )
+            showUser: jest.fn((user, edit) => {} )
         }
         
-        beforeEach(() => {            
+        beforeEach(() => {   
+            props.fetchUsers.mockClear();     
+            props.showUser.mockClear();    
             wrapper = shallow(<Users  {...props} />);
         });
 
@@ -79,19 +82,18 @@ describe('<Users />', () => {
         it('Should click details button', () => {
             const component = findByTestAttr(wrapper, 'info-button');
             component.first().simulate('click');
-            expect(props.showUserInfo.mock.calls.length).toBe(1);
+            expect(props.showUser.mock.calls.length).toBe(1);
+            expect(props.showUser).toHaveBeenCalledWith(testUserArray[0], false);
         });
 
-        /*it('Should click edit button', () => {
-            const instance = wrapper.instance();
-            const editButton = findByTestAttr(wrapper, 'edit-button').first();
-            const spy = jest.spyOn(instance, 'showModalHandler');
-            editButton.simulate('click');
-            expect(spy).toHaveBeenCalledWith(testState.users[0], true);
-            //expect(wrapper.state().selectedUser).toBe(testState.users[0]);
+        it('Should click edit button', () => {
+            const component = findByTestAttr(wrapper, 'edit-button');
+            component.first().simulate('click');
+            expect(props.showUser.mock.calls.length).toBe(1);
+            expect(props.showUser).toHaveBeenCalledWith(testUserArray[0], true);
         });
 
-        it('Should delete a user', () => {
+        /*it('Should delete a user', () => {
             const instance = wrapper.instance();
             const deleteButton = findByTestAttr(wrapper, 'delete-button').first();
             const spy = jest.spyOn(instance, 'deleteHandler');

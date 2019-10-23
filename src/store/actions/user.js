@@ -31,18 +31,18 @@ export const fetchUsers = () => {
       };
 };
 
-export const showUserInfo = (selectedUser) => {
+export const showUser = (selectedUser, edit) => {
     return {
-        type: actionTypes.SHOW_USER_INFO,
+        type: actionTypes.SHOW_USER,
         selectedUser: selectedUser,
-        edit: false
+        edit: edit
     }
 };
 
-export const showUserEdit = (selectedUser) => {
+export const hideUser = () => {
     return {
-        type: actionTypes.SHOW_USER_INFO,
-        selectedUser: selectedUser,
-        edit: true
+        type: actionTypes.HIDE_USER,
+        selectedUser: null,
+        edit: false
     }
 };

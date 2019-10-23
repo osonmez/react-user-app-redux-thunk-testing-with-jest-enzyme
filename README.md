@@ -12,3 +12,7 @@ https://github.com/dmitry-zaets/redux-mock-store
 
 
 https://bambielli.com/til/2018-03-04-directly-test-react-component-methods/
+
+
+
+npm test -- --coverage --watchAll=false

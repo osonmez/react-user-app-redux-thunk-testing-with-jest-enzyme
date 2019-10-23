@@ -44,12 +44,41 @@ describe('User Reducer', () => {
 
     it('Should fetch select user for info', () => {
         const newState = userReducer(undefined, {
-            type: actionTypes.SHOW_USER_INFO,
-            selectedUser: testUserArray[0]
+            type: actionTypes.SHOW_USER,
+            selectedUser: testUserArray[0],
+            edit: false
         });
         expect(newState).toStrictEqual({
             ...testState,
             selectedUser: testUserArray[0],
+            edit: false
+        });
+    });
+
+    it('Should fetch select user for edit', () => {
+        const newState = userReducer(undefined, {
+            type: actionTypes.SHOW_USER,
+            selectedUser: testUserArray[0],
+            edit: true
+        });
+        expect(newState).toStrictEqual({
+            ...testState,
+            selectedUser: testUserArray[0],
+            edit: true
+        });
+    });
+
+    it('Should fetch select user for edit', () => {
+        const newState = userReducer({
+            ...testState,
+            selectedUser: testUserArray[0],
+            edit: true
+        }, {
+            type: actionTypes.HIDE_USER
+        });
+        expect(newState).toStrictEqual({
+            ...testState,
+            selectedUser: null,
             edit: false
         });
     });
