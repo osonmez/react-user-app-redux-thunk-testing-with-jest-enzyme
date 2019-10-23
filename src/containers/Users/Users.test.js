@@ -1,31 +1,21 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import Users from './Users';
+import {Users} from './Users';
 import User from '../../components/User/User';
 import { findByTestAttr } from '../../shared/testUtil';
-import { testUserArray } from '../../shared/testData';
-
-const testState = {
-    users: testUserArray,
-    showModal:false,
-    selectedUser: null
-}
-
-const emptyTestState = {
-    users: null,
-    showModal:false,
-    selectedUser: null
-}
+import { testUserArray, testState } from '../../shared/testData';
 
 describe('<Users />', () => {
 
-    describe('Without state', () => {
+    describe('Without users, do not render list', () => {
 
         let wrapper;
         beforeEach(() => {
-            wrapper = shallow(<Users />);
-            wrapper.setState(emptyTestState);
+            const props = {
+                fetchUsers: () => {}
+            }
+            wrapper = shallow(<Users {...props} />);
         });
 
         it('should render without errors', () => {
@@ -34,13 +24,18 @@ describe('<Users />', () => {
         });
     });
 
-    describe('With state', () => {
+    describe('With users, render list', () => {
         
         let wrapper;
+        const props = {
+            ...testState,
+            users: testUserArray,
+            fetchUsers: jest.fn(),
+            showUserInfo: jest.fn(user => {} )
+        }
         
-        beforeEach(() => {
-            wrapper = shallow(<Users />);
-            wrapper.setState(testState);
+        beforeEach(() => {            
+            wrapper = shallow(<Users  {...props} />);
         });
 
         it('should have two child user components', () => {
@@ -84,17 +79,16 @@ describe('<Users />', () => {
         it('Should click details button', () => {
             const component = findByTestAttr(wrapper, 'info-button');
             component.first().simulate('click');
-            expect(wrapper.state().showModal).toBeTruthy();
-            expect(wrapper.state().selectedUser).toBeTruthy();
+            expect(props.showUserInfo.mock.calls.length).toBe(1);
         });
 
-        it('Should click edit button', () => {
+        /*it('Should click edit button', () => {
             const instance = wrapper.instance();
             const editButton = findByTestAttr(wrapper, 'edit-button').first();
             const spy = jest.spyOn(instance, 'showModalHandler');
             editButton.simulate('click');
             expect(spy).toHaveBeenCalledWith(testState.users[0], true);
-            expect(wrapper.state().selectedUser).toBe(testState.users[0]);
+            //expect(wrapper.state().selectedUser).toBe(testState.users[0]);
         });
 
         it('Should delete a user', () => {
@@ -103,9 +97,9 @@ describe('<Users />', () => {
             const spy = jest.spyOn(instance, 'deleteHandler');
             deleteButton.simulate('click');
             expect(spy).toHaveBeenCalledWith(testState.users[0].id);
-            expect(wrapper.state().users.length).toBe(1);
+            //expect(wrapper.state().users.length).toBe(1);
 
-        });        
+        }); */      
 
     });
 

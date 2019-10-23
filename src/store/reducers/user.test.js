@@ -1,14 +1,6 @@
 import * as actionTypes from '../actions/actionTypes';
 import userReducer from './user';
-import { testUserArray } from '../../shared/testData';
-
-const testState = {
-    users: [],
-    loading: false,
-    edit: false,
-    selectedUser: null,
-    error: null
-};
+import { testUserArray, testState } from '../../shared/testData';
 
 describe('User Reducer', () => {
 
@@ -47,6 +39,18 @@ describe('User Reducer', () => {
         expect(newState).toStrictEqual({
             ...testState,
             error: 'TEST ERROR!'
+        });
+    });
+
+    it('Should fetch select user for info', () => {
+        const newState = userReducer(undefined, {
+            type: actionTypes.SHOW_USER_INFO,
+            selectedUser: testUserArray[0]
+        });
+        expect(newState).toStrictEqual({
+            ...testState,
+            selectedUser: testUserArray[0],
+            edit: false
         });
     });
 

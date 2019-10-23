@@ -24,3 +24,11 @@ export const testUserArray = [
         }
       }
 ];
+
+export const testState = {
+  users: [],
+  loading: false,
+  edit: false,
+  selectedUser: null,
+  error: null
+};

@@ -30,3 +30,19 @@ export const fetchUsers = () => {
           .catch(err => dispatch(fetchUsersFailed(err)));
       };
 };
+
+export const showUserInfo = (selectedUser) => {
+    return {
+        type: actionTypes.SHOW_USER_INFO,
+        selectedUser: selectedUser,
+        edit: false
+    }
+};
+
+export const showUserEdit = (selectedUser) => {
+    return {
+        type: actionTypes.SHOW_USER_INFO,
+        selectedUser: selectedUser,
+        edit: true
+    }
+};

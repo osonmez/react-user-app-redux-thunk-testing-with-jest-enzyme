@@ -1,30 +1,24 @@
 import React, { Component } from 'react';
-import ListGroup from 'react-bootstrap/ListGroup'
+import ListGroup from 'react-bootstrap/ListGroup';
+import { connect } from 'react-redux';
 
 import User from '../../components/User/User';
 import Modal from '../../components/UI/Modal/Modal';
 import UserForm from '../../components/UserForm/UserForm';
 import UserInfo from '../../components/UserInfo/UserInfo';
-import { testUserArray } from '../../shared/testData';
 
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import Button from 'react-bootstrap/Button';
+import * as userActions from '../../store/actions/user';
 
-class Users extends Component {
-
-    state = {
-        users: testUserArray,
-        showModal: false,
-        edit: false,
-        selectedUser: null
-    }
+export class Users extends Component {
 
     showModalHandler = (user, isEdit = false) => {
         this.setState({ showModal: true, edit: isEdit, selectedUser: user });
     }
 
     closeHandler = () => {
-        this.setState({ showModal: false, edit: false, selectedUser: null });
+       this.props.showUserInfo(null);
     }
 
     deleteHandler = (id) => {
@@ -50,8 +44,11 @@ class Users extends Component {
             }
             return u;
         });
-        console.log(updatedUsers);
         this.setState({ showModal: false, users: updatedUsers });
+    }
+
+    componentDidMount(){
+        this.props.fetchUsers();
     }
 
     render() {
@@ -59,19 +56,21 @@ class Users extends Component {
         let userList = null;
         let modalContent = null;
 
-        if (this.state.selectedUser) {
-            modalContent = this.state.edit ? <UserForm usr={this.state.selectedUser} submit={this.editHandler} /> : <UserInfo usr={this.state.selectedUser} />;
+        const showModal = this.props.selectedUser ? true: false;
+
+        if (this.props.selectedUser) {
+            modalContent = this.props.edit ? <UserForm usr={this.props.selectedUser} submit={this.editHandler} /> : <UserInfo usr={this.props.selectedUser} />;
         }
 
 
-        if (this.state.users) {
+        if (this.props.users) {
             userList = (<ListGroup data-test="users">
-                {this.state.users.map(user => {
+                {this.props.users.map(user => {
                     return (
                         <ListGroup.Item key={user.id} >
                             <User usr={user} />
                             <ButtonToolbar>
-                                <Button variant="info" data-test="info-button" onClick={() => this.showModalHandler(user)}>Info</Button>
+                                <Button variant="info" data-test="info-button" onClick={() => this.props.showUserInfo(user)}>Info</Button>
                                 <Button variant="warning" data-test="edit-button" onClick={() => this.showModalHandler(user, true)}>Edit</Button>
                                 <Button variant="danger" data-test="delete-button" onClick={() => this.deleteHandler(user.id)}>Delete</Button>
                             </ButtonToolbar>
@@ -82,7 +81,7 @@ class Users extends Component {
 
         return (
             <div>
-                {<Modal title="User" show={this.state.showModal} handleClose={this.closeHandler} >
+                {<Modal title="User" show={showModal} handleClose={this.closeHandler} >
                     {modalContent}
                 </Modal>}
                 {userList}
@@ -90,4 +89,20 @@ class Users extends Component {
     }
 }
 
-export default Users;
+const mapStateToProps = state => {
+    return {
+        users: state.user.users,
+        loading: state.user.loading,
+        edit: state.user.edit,
+        selectedUser: state.user.selectedUser,
+        error: state.user.error
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchUsers: () => dispatch(userActions.fetchUsers()),
+        showUserInfo: (selectedUser) => dispatch(userActions.showUserInfo(selectedUser))
+    }
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Users);

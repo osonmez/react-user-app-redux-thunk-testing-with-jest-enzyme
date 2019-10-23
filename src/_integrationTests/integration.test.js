@@ -3,7 +3,7 @@ import { createTestStore } from '../shared/testUtil';
 import * as userActions from '../store/actions/user';
 import { testUserArray } from '../shared/testData';
 import configureMockStore from 'redux-mock-store';
-import { middlewares, rootReducer } from '../store';
+import { middlewares} from '../store';
 
 const mockStore = configureMockStore(middlewares)
 

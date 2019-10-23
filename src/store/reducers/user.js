@@ -21,6 +21,10 @@ const fetchUsersFail = (state, action) => {
     return { ...state, loading: false, error: action.error };
 };
 
+const showUserInfo = (state, action) => {
+    return { ...state, selectedUser: action.selectedUser };
+};
+
 const reducer = (state = initialState, action) => {
 
     switch (action.type) {
@@ -30,6 +34,8 @@ const reducer = (state = initialState, action) => {
             return fetchUsersSuccess(state, action);
         case actionTypes.FETCH_USERS_FAIL:
             return fetchUsersFail(state, action);
+        case actionTypes.SHOW_USER_INFO:
+            return showUserInfo(state, action);
         default:
             return state;
     }

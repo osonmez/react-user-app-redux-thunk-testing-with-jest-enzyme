@@ -199,7 +199,7 @@ const userForm = (props) => {
                                 </Form.Control.Feedback>
                             </Col>
                         </Form.Group>
-                        <Button data-testid="submit-button" type="submit" >
+                        <Button data-testid="submit-button" type="submit" disabled={!isValid}>
                             Submit
             </Button>
                     </Form>
