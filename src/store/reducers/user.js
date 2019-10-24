@@ -29,6 +29,32 @@ const hideUser = (state) => {
     return { ...state, selectedUser: null, edit: false};
 };
 
+const editUserSuccess = (state, action) => {
+    const updatedArray = state.users.map(user => {
+        if(user.id === action.user.id){
+            return {
+                id: action.user.id,
+                name: action.user.name,
+                username: action.user.username,
+                email: action.user.email,
+                address: {
+                    street: action.user.address.street,
+                    suite: action.user.address.suite,
+                    city: action.user.address.city,
+                    zipcode: action.user.address.zipcode
+                }   
+            }
+        }
+        return user;
+    });
+    return {
+        ...state,
+        selectedUser: null,
+        edit:false,
+        users: updatedArray
+    }
+};
+
 const reducer = (state = initialState, action) => {
 
     switch (action.type) {
@@ -42,6 +68,8 @@ const reducer = (state = initialState, action) => {
             return showUser(state, action);
         case actionTypes.HIDE_USER:
             return hideUser(state);
+        case actionTypes.EDIT_USER_SUCCESS:
+            return editUserSuccess(state, action);
         default:
             return state;
     }

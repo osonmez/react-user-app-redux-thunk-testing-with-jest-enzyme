@@ -83,4 +83,52 @@ describe('User Reducer', () => {
         });
     });
 
+    it('Should edit user successfuly', () => {
+        const newState = userReducer({
+            ...testState,
+            users: testUserArray,
+            selectedUser: testUserArray[0],
+            edit: true
+        }, {
+            type: actionTypes.EDIT_USER_SUCCESS,
+            user: {
+                ...testUserArray[0],
+                name: 'testuser',
+                username: "test1",
+                email: "test@test.biz",
+                address: {
+                    street: "Kulas Light",
+                    suite: "Apt. 556",
+                    city: "Gwenborough",
+                    zipcode: "92998-3874"
+                }
+            }
+        });
+
+        const updatedArray = testUserArray.map(user => {
+            if(user.id === testUserArray[0].id){
+                return {
+                    ...testUserArray[0],
+                    name: 'testuser',
+                    username: "test1",
+                    email: "test@test.biz",
+                    address: {
+                        street: "Kulas Light",
+                        suite: "Apt. 556",
+                        city: "Gwenborough",
+                        zipcode: "92998-3874"
+                    }   
+                }
+            }
+            return user;
+        })
+
+        expect(newState).toStrictEqual({
+            ...testState,
+            edit:false,
+            selectedUser: null,
+            users: updatedArray
+        });
+    });
+
 });

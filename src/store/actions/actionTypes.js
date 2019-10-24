@@ -5,3 +5,8 @@ export const FETCH_USERS_FAIL = 'FETCH_USERS_FAIL';
 
 export const SHOW_USER = 'SHOW_USER';
 export const HIDE_USER = 'HIDE_USER';
+
+export const EDIT_USER = 'EDIT_USER';
+export const EDIT_USER_START = 'EDIT_USER_START';
+export const EDIT_USER_SUCCESS = 'EDIT_USER_SUCCESS';
+export const EDIT_USER_FAIL = 'EDIT_USER_FAIL';
