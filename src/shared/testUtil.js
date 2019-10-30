@@ -22,6 +22,6 @@ export const setUpShallowWrapper = (TestComponent, testProps={}) => {
     return shallow(<TestComponent {...testProps} />);
 };
 
-export const createTestStore = () => {
-    return createStore(rootReducer, applyMiddleware(...middlewares));
+export const createTestStore = (initialState) => {
+    return createStore(rootReducer, initialState, applyMiddleware(...middlewares));
 };

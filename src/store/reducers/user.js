@@ -37,6 +37,7 @@ const editUserStart = (state) => {
 };
 
 const editUserSuccess = (state, action) => {
+    console.log('editUserSuccess', state, action.user);
     const updatedArray = state.users.map(user => {
         if(user.id === action.user.id){
             return {
