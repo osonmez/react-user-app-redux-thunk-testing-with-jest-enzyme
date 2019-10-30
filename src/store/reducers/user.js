@@ -29,6 +29,13 @@ const hideUser = (state) => {
     return { ...state, selectedUser: null, edit: false};
 };
 
+const editUserStart = (state) => {
+    return {
+        ...state,
+        loading:true
+    }
+};
+
 const editUserSuccess = (state, action) => {
     const updatedArray = state.users.map(user => {
         if(user.id === action.user.id){
@@ -51,7 +58,18 @@ const editUserSuccess = (state, action) => {
         ...state,
         selectedUser: null,
         edit:false,
-        users: updatedArray
+        users: updatedArray,
+        loading:false
+    }
+};
+
+const editUserFail = (state, action) => {
+    return {
+        ...state,
+        selectedUser: null,
+        edit:false,
+        error: action.error,
+        loading:false
     }
 };
 
@@ -68,8 +86,12 @@ const reducer = (state = initialState, action) => {
             return showUser(state, action);
         case actionTypes.HIDE_USER:
             return hideUser(state);
+        case actionTypes.EDIT_USER_START:
+            return editUserStart(state);
         case actionTypes.EDIT_USER_SUCCESS:
             return editUserSuccess(state, action);
+        case actionTypes.EDIT_USER_FAIL:
+            return editUserFail(state, action);        
         default:
             return state;
     }

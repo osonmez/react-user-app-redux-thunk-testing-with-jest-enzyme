@@ -88,7 +88,8 @@ describe('User Reducer', () => {
             ...testState,
             users: testUserArray,
             selectedUser: testUserArray[0],
-            edit: true
+            edit: true,
+            loading:true
         }, {
             type: actionTypes.EDIT_USER_SUCCESS,
             user: {
@@ -127,7 +128,46 @@ describe('User Reducer', () => {
             ...testState,
             edit:false,
             selectedUser: null,
-            users: updatedArray
+            users: updatedArray,
+            loading:false
+        });
+    });
+
+    it('Should fail user edit', () => {
+        const newState = userReducer({
+            ...testState,
+            users: testUserArray,
+            selectedUser: testUserArray[0],
+            edit: true
+        }, {
+            type: actionTypes.EDIT_USER_FAIL,
+            error: 'TEST EDIT ERROR!'
+        });
+        expect(newState).toStrictEqual({
+            ...testState,
+            users: testUserArray,
+            edit:false,
+            loading:false,
+            selectedUser: null,
+            error: 'TEST EDIT ERROR!'
+        });
+    });
+
+    it('Should fail user edit', () => {
+        const newState = userReducer({
+            ...testState,
+            users: testUserArray,
+            selectedUser: testUserArray[0],
+            edit: true
+        }, {
+            type: actionTypes.EDIT_USER_START
+        });
+        expect(newState).toStrictEqual({
+            ...testState,
+            users: testUserArray,
+            selectedUser: testUserArray[0],
+            edit: true,
+            loading:true
         });
     });
 
