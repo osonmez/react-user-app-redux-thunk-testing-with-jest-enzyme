@@ -32,7 +32,8 @@ describe('<Users />', () => {
             ...testState,
             users: testUserArray,
             fetchUsers: jest.fn(),
-            showUser: jest.fn((user, edit) => {} )
+            showUser: jest.fn((user, edit) => {} ),
+            delete: jest.fn((id) => {} ),
         }
         
         beforeEach(() => {   
@@ -93,15 +94,13 @@ describe('<Users />', () => {
             expect(props.showUser).toHaveBeenCalledWith(testUserArray[0], true);
         });
 
-        /*it('Should delete a user', () => {
+        it('Should delete a user', () => {
             const instance = wrapper.instance();
             const deleteButton = findByTestAttr(wrapper, 'delete-button').first();
             const spy = jest.spyOn(instance, 'deleteHandler');
             deleteButton.simulate('click');
-            expect(spy).toHaveBeenCalledWith(testState.users[0].id);
-            //expect(wrapper.state().users.length).toBe(1);
-
-        }); */      
+            expect(spy).toHaveBeenCalledWith(testUserArray[0].id);
+        });     
 
     });
 

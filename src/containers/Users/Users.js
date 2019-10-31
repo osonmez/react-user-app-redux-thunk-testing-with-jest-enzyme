@@ -14,8 +14,7 @@ import * as userActions from '../../store/actions/user';
 export class Users extends Component {
 
     deleteHandler = (id) => {
-        const updatedUsers = this.state.users.filter(user => user.id !== id);
-        this.setState({ users: updatedUsers });
+        this.props.delete(id);
     }
 
     editHandler = (user) => {
@@ -79,7 +78,8 @@ const mapDispatchToProps = dispatch => {
         fetchUsers: () => dispatch(userActions.fetchUsers()),
         showUser: (selectedUser, edit) => dispatch(userActions.showUser(selectedUser, edit)),
         hideUser: () => dispatch(userActions.hideUser()),
-        saveUser: (selectedUser) => dispatch(userActions.editUser(selectedUser))
+        saveUser: (selectedUser) => dispatch(userActions.editUser(selectedUser)),
+        delete: (id) => dispatch(userActions.deleteUser(id))
     }
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Users);

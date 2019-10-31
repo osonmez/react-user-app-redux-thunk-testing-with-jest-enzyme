@@ -76,3 +76,32 @@ export const hideUser = () => {
         edit: false
     }
 };
+
+export const deleteUserStart = () => {
+    return {
+        type: actionTypes.DELETE_USER_START
+    }
+};
+
+export const deleteUserSuccess = (id) => {
+    return {
+        type: actionTypes.DELETE_USER_SUCCESS,
+        id: id
+    }
+};
+
+export const deleteUserFail = (error) => {
+    return {
+        type: actionTypes.DELETE_USER_FAIL,
+        error: error
+    }
+};
+
+export const deleteUser = (id) => {
+    return dispatch => {
+        dispatch(deleteUserStart());
+        return axios.delete(`https://jsonplaceholder.typicode.com/users/${id}`)
+        .then(res => dispatch(deleteUserSuccess(id)))
+        .catch(error => dispatch(deleteUserFail(error)));
+    };
+};
