@@ -38,7 +38,6 @@ export const editUserStarted = () => {
 };
 
 export const editUserSuccess = (user) => {
-    console.log('here', user);
     return {
         type: actionTypes.EDIT_USER_SUCCESS,
         user: user

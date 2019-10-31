@@ -3,7 +3,7 @@ import { createTestStore } from '../shared/testUtil';
 import * as userActions from '../store/actions/user';
 import { testUserArray, testState } from '../shared/testData';
 import configureMockStore from 'redux-mock-store';
-import { middlewares} from '../store';
+import { middlewares } from '../store';
 
 const mockStore = configureMockStore(middlewares)
 
@@ -200,14 +200,14 @@ describe('Edit user', () => {
         });
 
         it('should update store correctly in success case', () => {
-            const testStore = createTestStore({ 
+            const testStore = createTestStore({
                 user: {
-                ...testState,
-                users: testUserArray,
-                selectedUser: testUserArray[0],
-                edit: true
-            }
-        });
+                    ...testState,
+                    users: testUserArray,
+                    selectedUser: testUserArray[0],
+                    edit: true
+                }
+            });
 
             moxios.wait(() => {
                 const request = moxios.requests.mostRecent();
@@ -219,7 +219,6 @@ describe('Edit user', () => {
 
             return testStore.dispatch(userActions.editUser(testUserArray[0])).then(() => {
                 const newState = testStore.getState();
-                console.log(newState);
                 expect(newState.user.users).toStrictEqual(testUserArray);
             });
         });
