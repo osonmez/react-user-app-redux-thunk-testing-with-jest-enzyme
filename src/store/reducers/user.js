@@ -73,6 +73,35 @@ const editUserFail = (state, action) => {
     }
 };
 
+const deleteUserStart = (state) => {
+    return {
+        ...state,
+        loading:true
+    }
+};
+
+const deleteUserSuccess = (state, action) => {
+    const updatedUsers = state.users.filter(user => user.id !== action.id);
+    return {
+        ...state,
+        users: updatedUsers,
+        selectedUser: null,
+        edit:false,
+        error: null,
+        loading:false
+    }
+};
+
+const deleteUserFail = (state, action) => {
+    return {
+        ...state,
+        selectedUser: null,
+        edit:false,
+        error: action.error,
+        loading:false
+    }
+};
+
 const reducer = (state = initialState, action) => {
 
     switch (action.type) {
@@ -91,7 +120,13 @@ const reducer = (state = initialState, action) => {
         case actionTypes.EDIT_USER_SUCCESS:
             return editUserSuccess(state, action);
         case actionTypes.EDIT_USER_FAIL:
-            return editUserFail(state, action);        
+            return editUserFail(state, action);  
+        case actionTypes.DELETE_USER_START:
+            return deleteUserStart(state);  
+        case actionTypes.DELETE_USER_SUCCESS:
+            return deleteUserSuccess(state, action);    
+        case actionTypes.DELETE_USER_FAIL:
+            return deleteUserFail(state, action);       
         default:
             return state;
     }

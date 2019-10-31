@@ -37,7 +37,19 @@ const userForm = (props) => {
             validationSchema={schema}
             onSubmit={(values, formikBag) => {
                 //alert('SUCCESS!! :-)\n\n' + JSON.stringify(fields, null, 4))
-                props.submit(values);
+                const editedUser = {
+                        id: props.usr.id,
+                        name: values.name,
+                        username: values.username,
+                        email: values.email,
+                        address: {
+                            street: values.street,
+                            suite: values.suite,
+                            city: values.city,
+                            zipcode: values.zipcode
+                        }
+                }
+                props.submit(editedUser);
             }}
             validateOnChange={true}
             validateOnBlur={true}

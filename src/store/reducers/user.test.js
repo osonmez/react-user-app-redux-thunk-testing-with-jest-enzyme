@@ -171,4 +171,63 @@ describe('User Reducer', () => {
         });
     });
 
+    it('Should delete user start', () => {
+        const newState = userReducer({
+            ...testState,
+            users: testUserArray,
+            selectedUser: null,
+            edit: false,
+            loading:false
+        }, {
+            type: actionTypes.DELETE_USER_START,
+        });
+        expect(newState).toStrictEqual({
+            ...testState,
+            users: testUserArray,
+            selectedUser: null,
+            edit: false,
+            loading:true
+        });
+    });
+
+    it('Should delete user successfully', () => {
+        const newState = userReducer({
+            ...testState,
+            users: testUserArray,
+            selectedUser: null,
+            edit: false
+        }, {
+            type: actionTypes.DELETE_USER_SUCCESS,
+            id: testUserArray[0].id
+        });
+        expect(newState).toStrictEqual({
+            ...testState,
+            users: [testUserArray[1]],
+            selectedUser: null,
+            edit: false,
+            loading:false
+        });
+    });
+
+    it('Should delete user start', () => {
+        const newState = userReducer({
+            ...testState,
+            users: testUserArray,
+            selectedUser: null,
+            edit: false,
+            loading:false
+        }, {
+            type: actionTypes.DELETE_USER_FAIL,
+            error: 'DELETE ERROR!'
+        });
+        expect(newState).toStrictEqual({
+            ...testState,
+            users: testUserArray,
+            selectedUser: null,
+            edit: false,
+            error: 'DELETE ERROR!',
+            loading:false
+        });
+    });
+
 });

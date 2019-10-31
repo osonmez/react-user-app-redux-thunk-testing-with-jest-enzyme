@@ -19,24 +19,7 @@ export class Users extends Component {
     }
 
     editHandler = (user) => {
-        const updatedUsers = this.state.users.map(u => {
-            if (u.id === this.state.selectedUser.id) {
-                return {
-                    id: u.id,
-                    name: user.name,
-                    username: user.username,
-                    email: user.email,
-                    address: {
-                        street: user.street,
-                        suite: user.suite,
-                        city: user.city,
-                        zipcode: user.zipcode
-                    }
-                }
-            }
-            return u;
-        });
-        this.setState({ showModal: false, users: updatedUsers });
+        this.props.saveUser(user);
     }
 
     componentDidMount(){
@@ -95,7 +78,8 @@ const mapDispatchToProps = dispatch => {
     return {
         fetchUsers: () => dispatch(userActions.fetchUsers()),
         showUser: (selectedUser, edit) => dispatch(userActions.showUser(selectedUser, edit)),
-        hideUser: () => dispatch(userActions.hideUser())
+        hideUser: () => dispatch(userActions.hideUser()),
+        saveUser: (selectedUser) => dispatch(userActions.editUser(selectedUser))
     }
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Users);

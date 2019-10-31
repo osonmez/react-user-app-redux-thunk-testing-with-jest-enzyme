@@ -56,7 +56,7 @@ export const editUser = (user) => {
         dispatch(editUserStarted());
 
         return axios.put(`http://jsonplaceholder.typicode.com/users/${user.id}`, user)
-        .then(res => dispatch(editUserSuccess(res.data)))
+        .then(res => dispatch(editUserSuccess(user)))
         .catch(err => dispatch(editUserFailed(err)));
     };
 };
