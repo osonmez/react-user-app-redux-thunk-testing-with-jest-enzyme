@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import classes from './Layout.module.css';
+import Backdrop from '../../components/UI/Backdrop/Backdrop';
+import Spinner from 'react-bootstrap/Spinner';
 
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { connect } from 'react-redux';
 import { withRouter } from "react-router";
 import { NavLink } from 'react-router-dom';
 
@@ -13,6 +16,12 @@ class Layout extends Component {
 
     render() {
         return (
+            <>
+            <Backdrop show={this.props.loading}>
+                    <Spinner animation="border" role="status" variant="light" >
+                        <span className="sr-only">Loading...</span>
+                    </Spinner>
+                </Backdrop>
             <div className={classes.Layout}>
                 <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
                     <Navbar.Brand as={NavLink} to="/">Users App</Navbar.Brand>
@@ -34,8 +43,15 @@ class Layout extends Component {
                     </Row>
 
                 </Container>
-            </div>);
+            </div>
+            </>);
     }
 }
 
-export default withRouter(Layout);
+const mapStateToProps = state => {
+    return {
+        loading: state.user.loading
+    }
+}
+
+export default connect(mapStateToProps)(withRouter(Layout));
