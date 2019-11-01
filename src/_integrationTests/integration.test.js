@@ -1,7 +1,7 @@
 import moxios from 'moxios';
 import { createTestStore } from '../shared/testUtil';
 import * as userActions from '../store/actions/user';
-import { testUserArray, testState } from '../shared/testData';
+import { testUserArray, testInitialStateWithUsers } from '../shared/testData';
 import configureMockStore from 'redux-mock-store';
 import { middlewares } from '../store';
 
@@ -202,8 +202,7 @@ describe('Edit user', () => {
         it('should update store correctly in success case', () => {
             const testStore = createTestStore({
                 user: {
-                    ...testState,
-                    users: testUserArray,
+                    ...testInitialStateWithUsers,
                     selectedUser: testUserArray[0],
                     edit: true
                 }
@@ -305,8 +304,7 @@ describe('Delete user', () => {
         it('should update store correctly in success case', () => {
             const testStore = createTestStore({
                 user: {
-                    ...testState,
-                    users: testUserArray,
+                    ...testInitialStateWithUsers,
                     selectedUser: null,
                     edit: false,
                     loading: false

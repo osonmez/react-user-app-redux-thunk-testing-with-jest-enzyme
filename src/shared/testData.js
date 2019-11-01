@@ -25,8 +25,28 @@ export const testUserArray = [
       }
 ];
 
-export const testState = {
+export const editedUser = {
+  "name": "Edited Name",
+  "username": "editedusername",
+  "email": "edited@edited.com",
+  "address": {
+    "street": "Edited Street",
+    "suite": "Edited Suite",
+    "city": "Edit",
+    "zipcode": "11111-0000"
+  }
+}
+
+export const testInitialState = {
   users: [],
+  loading: false,
+  edit: false,
+  selectedUser: null,
+  error: null
+};
+
+export const testInitialStateWithUsers = {
+  users: testUserArray,
   loading: false,
   edit: false,
   selectedUser: null,

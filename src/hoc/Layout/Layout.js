@@ -17,33 +17,33 @@ class Layout extends Component {
     render() {
         return (
             <>
-            <Backdrop show={this.props.loading}>
+                <Backdrop show={this.props.loading}>
                     <Spinner animation="border" role="status" variant="light" >
                         <span className="sr-only">Loading...</span>
                     </Spinner>
                 </Backdrop>
-            <div className={classes.Layout}>
-                <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-                    <Navbar.Brand as={NavLink} to="/">Users App</Navbar.Brand>
-                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                    <Navbar.Collapse id="responsive-navbar-nav">
-                        <Nav 
-                        className="mr-auto" 
-                        activeKey={this.props.location.pathname}>
-                            <Nav.Link as={NavLink} to="/">Users</Nav.Link>
-                            <Nav.Link as={NavLink} to="/add">Add</Nav.Link>
-                        </Nav>
-                    </Navbar.Collapse>
-                </Navbar>
-                <Container>
-                    <Row className="justify-content-md-center">
-                        <Col>
-                            {this.props.children}
-                        </Col>
-                    </Row>
+                <div className={classes.Layout}>
+                    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+                        <Navbar.Brand as={NavLink} to="/">Users App</Navbar.Brand>
+                        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                        <Navbar.Collapse id="responsive-navbar-nav">
+                            <Nav
+                                className="mr-auto"
+                                activeKey={this.props.location.pathname}>
+                                <Nav.Link as={NavLink} to="/">Users</Nav.Link>
+                                <Nav.Link as={NavLink} to="/add">Add</Nav.Link>
+                            </Nav>
+                        </Navbar.Collapse>
+                    </Navbar>
+                    <Container>
+                        <Row className="justify-content-md-center">
+                            <Col>
+                                {this.props.children}
+                            </Col>
+                        </Row>
 
-                </Container>
-            </div>
+                    </Container>
+                </div>
             </>);
     }
 }

@@ -1,12 +1,12 @@
 import * as actionTypes from '../actions/actionTypes';
 import userReducer from './user';
-import { testUserArray, testState } from '../../shared/testData';
+import { testUserArray, testInitialState, testInitialStateWithUsers, editedUser } from '../../shared/testData';
 
 describe('User Reducer', () => {
 
     it('Should return default state', () => {
         const iState = userReducer(undefined, {});
-        expect(iState).toStrictEqual(testState);
+        expect(iState).toStrictEqual(testInitialState);
     });
 
     it('Should fetch users start', () => {
@@ -14,7 +14,7 @@ describe('User Reducer', () => {
             type: actionTypes.FETCH_USERS_START
         });
         expect(newState).toStrictEqual({
-            ...testState,
+            ...testInitialState,
             loading: true
         });
     });
@@ -25,8 +25,7 @@ describe('User Reducer', () => {
             users: testUserArray
         });
         expect(newState).toStrictEqual({
-            ...testState,
-            users: testUserArray,
+            ...testInitialStateWithUsers,
             loading: false
         });
     });
@@ -37,32 +36,32 @@ describe('User Reducer', () => {
             error: 'TEST ERROR!'
         });
         expect(newState).toStrictEqual({
-            ...testState,
+            ...testInitialState,
             error: 'TEST ERROR!'
         });
     });
 
     it('Should fetch select user for info', () => {
-        const newState = userReducer(undefined, {
+        const newState = userReducer(testInitialStateWithUsers, {
             type: actionTypes.SHOW_USER,
             selectedUser: testUserArray[0],
             edit: false
         });
         expect(newState).toStrictEqual({
-            ...testState,
+            ...testInitialStateWithUsers,
             selectedUser: testUserArray[0],
             edit: false
         });
     });
 
     it('Should fetch select user for edit', () => {
-        const newState = userReducer(undefined, {
+        const newState = userReducer(testInitialStateWithUsers, {
             type: actionTypes.SHOW_USER,
             selectedUser: testUserArray[0],
             edit: true
         });
         expect(newState).toStrictEqual({
-            ...testState,
+            ...testInitialStateWithUsers,
             selectedUser: testUserArray[0],
             edit: true
         });
@@ -70,14 +69,14 @@ describe('User Reducer', () => {
 
     it('Should fetch select user for edit', () => {
         const newState = userReducer({
-            ...testState,
+            ...testInitialStateWithUsers,
             selectedUser: testUserArray[0],
             edit: true
         }, {
             type: actionTypes.HIDE_USER
         });
         expect(newState).toStrictEqual({
-            ...testState,
+            ...testInitialStateWithUsers,
             selectedUser: null,
             edit: false
         });
@@ -85,47 +84,30 @@ describe('User Reducer', () => {
 
     it('Should edit user successfuly', () => {
         const newState = userReducer({
-            ...testState,
-            users: testUserArray,
+            ...testInitialStateWithUsers,
             selectedUser: testUserArray[0],
             edit: true,
             loading:true
         }, {
             type: actionTypes.EDIT_USER_SUCCESS,
             user: {
-                ...testUserArray[0],
-                name: 'testuser',
-                username: "test1",
-                email: "test@test.biz",
-                address: {
-                    street: "Kulas Light",
-                    suite: "Apt. 556",
-                    city: "Gwenborough",
-                    zipcode: "92998-3874"
-                }
+                ...editedUser,
+                id: testUserArray[0].id                
             }
         });
 
         const updatedArray = testUserArray.map(user => {
             if(user.id === testUserArray[0].id){
                 return {
-                    ...testUserArray[0],
-                    name: 'testuser',
-                    username: "test1",
-                    email: "test@test.biz",
-                    address: {
-                        street: "Kulas Light",
-                        suite: "Apt. 556",
-                        city: "Gwenborough",
-                        zipcode: "92998-3874"
-                    }   
+                    ...editedUser,
+                    id: testUserArray[0].id    
                 }
             }
             return user;
         })
 
         expect(newState).toStrictEqual({
-            ...testState,
+            ...testInitialStateWithUsers,
             edit:false,
             selectedUser: null,
             users: updatedArray,
@@ -135,8 +117,7 @@ describe('User Reducer', () => {
 
     it('Should fail user edit', () => {
         const newState = userReducer({
-            ...testState,
-            users: testUserArray,
+            ...testInitialStateWithUsers,
             selectedUser: testUserArray[0],
             edit: true
         }, {
@@ -144,8 +125,7 @@ describe('User Reducer', () => {
             error: 'TEST EDIT ERROR!'
         });
         expect(newState).toStrictEqual({
-            ...testState,
-            users: testUserArray,
+            ...testInitialStateWithUsers,
             edit:false,
             loading:false,
             selectedUser: null,
@@ -155,16 +135,14 @@ describe('User Reducer', () => {
 
     it('Should fail user edit', () => {
         const newState = userReducer({
-            ...testState,
-            users: testUserArray,
+            ...testInitialStateWithUsers,
             selectedUser: testUserArray[0],
             edit: true
         }, {
             type: actionTypes.EDIT_USER_START
         });
         expect(newState).toStrictEqual({
-            ...testState,
-            users: testUserArray,
+            ...testInitialStateWithUsers,
             selectedUser: testUserArray[0],
             edit: true,
             loading:true
@@ -173,8 +151,7 @@ describe('User Reducer', () => {
 
     it('Should delete user start', () => {
         const newState = userReducer({
-            ...testState,
-            users: testUserArray,
+            ...testInitialStateWithUsers,
             selectedUser: null,
             edit: false,
             loading:false
@@ -182,8 +159,7 @@ describe('User Reducer', () => {
             type: actionTypes.DELETE_USER_START,
         });
         expect(newState).toStrictEqual({
-            ...testState,
-            users: testUserArray,
+            ...testInitialStateWithUsers,
             selectedUser: null,
             edit: false,
             loading:true
@@ -192,8 +168,7 @@ describe('User Reducer', () => {
 
     it('Should delete user successfully', () => {
         const newState = userReducer({
-            ...testState,
-            users: testUserArray,
+            ...testInitialStateWithUsers,
             selectedUser: null,
             edit: false
         }, {
@@ -201,7 +176,7 @@ describe('User Reducer', () => {
             id: testUserArray[0].id
         });
         expect(newState).toStrictEqual({
-            ...testState,
+            ...testInitialStateWithUsers,
             users: [testUserArray[1]],
             selectedUser: null,
             edit: false,
@@ -211,8 +186,7 @@ describe('User Reducer', () => {
 
     it('Should delete user start', () => {
         const newState = userReducer({
-            ...testState,
-            users: testUserArray,
+            ...testInitialStateWithUsers,
             selectedUser: null,
             edit: false,
             loading:false
@@ -221,8 +195,7 @@ describe('User Reducer', () => {
             error: 'DELETE ERROR!'
         });
         expect(newState).toStrictEqual({
-            ...testState,
-            users: testUserArray,
+            ...testInitialStateWithUsers,
             selectedUser: null,
             edit: false,
             error: 'DELETE ERROR!',

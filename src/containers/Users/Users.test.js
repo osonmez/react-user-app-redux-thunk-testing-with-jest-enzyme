@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import {Users} from './Users';
 import User from '../../components/User/User';
 import { findByTestAttr } from '../../shared/testUtil';
-import { testUserArray, testState } from '../../shared/testData';
+import { testUserArray, testInitialStateWithUsers } from '../../shared/testData';
 
 describe('<Users />', () => {
 
@@ -29,8 +29,7 @@ describe('<Users />', () => {
         
         let wrapper;
         const props = {
-            ...testState,
-            users: testUserArray,
+            ...testInitialStateWithUsers,
             fetchUsers: jest.fn(),
             showUser: jest.fn((user, edit) => {} ),
             delete: jest.fn((id) => {} ),
