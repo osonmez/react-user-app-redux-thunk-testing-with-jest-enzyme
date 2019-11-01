@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { connect } from 'react-redux';
+import Backdrop from '../../components/UI/Backdrop/Backdrop';
+import Spinner from 'react-bootstrap/Spinner';
 
 import User from '../../components/User/User';
 import Modal from '../../components/UI/Modal/Modal';
@@ -21,7 +23,7 @@ export class Users extends Component {
         this.props.saveUser(user);
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.fetchUsers();
     }
 
@@ -30,7 +32,7 @@ export class Users extends Component {
         let userList = null;
         let modalContent = null;
 
-        const showModal = this.props.selectedUser ? true: false;
+        const showModal = this.props.selectedUser ? true : false;
 
         if (this.props.selectedUser) {
             modalContent = this.props.edit ? <UserForm usr={this.props.selectedUser} submit={this.editHandler} /> : <UserInfo usr={this.props.selectedUser} />;
@@ -55,6 +57,11 @@ export class Users extends Component {
 
         return (
             <div>
+                <Backdrop show={this.props.loading}>
+                    <Spinner animation="border" role="status" variant="light" >
+                        <span className="sr-only">Loading...</span>
+                    </Spinner>
+                </Backdrop>
                 {<Modal title="User" show={showModal} handleClose={this.props.hideUser} >
                     {modalContent}
                 </Modal>}
