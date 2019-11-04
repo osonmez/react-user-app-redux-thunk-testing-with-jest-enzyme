@@ -105,3 +105,32 @@ export const deleteUser = (id) => {
         .catch(error => dispatch(deleteUserFail(error)));
     };
 };
+
+export const addUserStart = () => {
+    return {
+        type: actionTypes.ADD_USER_START
+    }
+};
+
+export const addUserSuccess = (user) => {
+    return {
+        type: actionTypes.ADD_USER_SUCCESS,
+        user: user
+    }
+};
+
+export const addUserFail = (error) => {
+    return {
+        type: actionTypes.ADD_USER_FAIL,
+        error: error
+    }
+};
+
+export const addUser = (user) => {
+    return dispatch => {
+        dispatch(addUserStart());
+        return axios.post('https://jsonplaceholder.typicode.com/users', user)
+        .then(response => dispatch(addUserSuccess(response.data)))
+        .catch(error => dispatch(addUserFail(error)));
+    }
+};

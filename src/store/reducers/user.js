@@ -102,6 +102,28 @@ const deleteUserFail = (state, action) => {
     }
 };
 
+const addUserStart = (state) => {
+    return {
+        ...state,
+        loading:true
+    }
+};
+
+const addUserSuccess = (state, action) => {
+    const updatedUsers = [...state.users, action.user];
+    return {
+        ...state,
+        users: updatedUsers
+    }
+};
+
+const addUserFail = (state, action) => {
+    return {
+        ...state,
+        error: action.error
+    }
+};
+
 const reducer = (state = initialState, action) => {
 
     switch (action.type) {
@@ -126,7 +148,13 @@ const reducer = (state = initialState, action) => {
         case actionTypes.DELETE_USER_SUCCESS:
             return deleteUserSuccess(state, action);    
         case actionTypes.DELETE_USER_FAIL:
-            return deleteUserFail(state, action);       
+            return deleteUserFail(state, action); 
+        case actionTypes.ADD_USER_START:
+            return addUserStart(state);     
+        case actionTypes.ADD_USER_SUCCESS:
+            return addUserSuccess(state, action);   
+        case actionTypes.ADD_USER_FAIL:
+            return addUserFail(state, action); 
         default:
             return state;
     }

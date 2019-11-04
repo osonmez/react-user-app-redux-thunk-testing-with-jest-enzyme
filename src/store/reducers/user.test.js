@@ -1,6 +1,6 @@
 import * as actionTypes from '../actions/actionTypes';
 import userReducer from './user';
-import { testUserArray, testInitialState, testInitialStateWithUsers, editedUser } from '../../shared/testData';
+import { testUserArray, testInitialState, testInitialStateWithUsers, editedUser, newUser } from '../../shared/testData';
 
 describe('User Reducer', () => {
 
@@ -201,6 +201,46 @@ describe('User Reducer', () => {
             error: 'DELETE ERROR!',
             loading:false
         });
+    });
+
+    it('Should add user', () => {
+        const newState = userReducer(testInitialStateWithUsers, {
+            type: actionTypes.ADD_USER_SUCCESS,
+            user: newUser
+        });
+
+        const updatedUsers = [...testUserArray, newUser];
+
+        expect(newState).toStrictEqual({
+            ...testInitialStateWithUsers,
+            users: updatedUsers
+        });
+
+    });
+
+    it('Should add user fail', () => {
+        const newState = userReducer(testInitialStateWithUsers, {
+            type: actionTypes.ADD_USER_FAIL,
+            error: 'ADD USER ERROR!'
+        });
+
+        expect(newState).toStrictEqual({
+            ...testInitialStateWithUsers,
+            error: 'ADD USER ERROR!'
+        });
+
+    });
+
+    it('Should add user start', () => {
+        const newState = userReducer(testInitialStateWithUsers, {
+            type: actionTypes.ADD_USER_START
+        });
+
+        expect(newState).toStrictEqual({
+            ...testInitialStateWithUsers,
+            loading: true
+        });
+
     });
 
 });

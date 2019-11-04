@@ -37,6 +37,18 @@ export const editedUser = {
   }
 }
 
+export const newUser = {
+  "name": "New Name",
+  "username": "newedusername",
+  "email": "new@new.com",
+  "address": {
+    "street": "New Street",
+    "suite": "New Suite",
+    "city": "New",
+    "zipcode": "11111-0001"
+  }
+}
+
 export const testInitialState = {
   users: [],
   loading: false,

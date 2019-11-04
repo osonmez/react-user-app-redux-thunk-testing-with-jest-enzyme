@@ -1,7 +1,7 @@
 import moxios from 'moxios';
 import { createTestStore } from '../shared/testUtil';
 import * as userActions from '../store/actions/user';
-import { testUserArray, testInitialStateWithUsers } from '../shared/testData';
+import { testUserArray, testInitialStateWithUsers, newUser } from '../shared/testData';
 import configureMockStore from 'redux-mock-store';
 import { middlewares } from '../store';
 
@@ -321,6 +321,107 @@ describe('Delete user', () => {
             return testStore.dispatch(userActions.deleteUser(testUserArray[0].id)).then(() => {
                 const newState = testStore.getState();
                 expect(newState.user.users).toStrictEqual([testUserArray[1]]);
+            });
+        });
+
+    });
+
+});
+
+describe('Add user', () => {
+
+    describe('Actions', () => {
+
+        beforeEach(() => {
+            moxios.install();
+        });
+
+        afterEach(() => {
+            moxios.uninstall();
+        });
+
+        it('Should call ADD_USER_START and ADD_USER_SUCCESS actions', () => {
+            const testStore = mockStore();
+
+            moxios.wait(() => {
+                const request = moxios.requests.mostRecent();
+                request.respondWith({
+                    status: 200,
+                    response: newUser
+                });
+            });
+
+            const expectedActions = [
+                userActions.addUserStart(),
+                userActions.addUserSuccess(newUser)
+            ];
+
+            return testStore.dispatch(userActions.addUser(newUser)).then(() => {
+                expect(testStore.getActions()).toStrictEqual(expectedActions);
+            });
+
+        });
+
+        it('Should call ADD_USER_START and ADD_USER_FAIL actions', () => {
+            const testStore = mockStore();
+
+            const errResp = {
+                status: 422,
+                response: { message: 'problem' },
+            };
+
+            moxios.wait(() => {
+                const request = moxios.requests.mostRecent();
+                request.reject(errResp);
+            });
+
+            const expectedActions = [
+                userActions.addUserStart(),
+                userActions.addUserFail({
+                    response: {
+                        data: undefined,
+                        message: "problem",
+                    },
+                    status: 422
+                })
+            ];
+
+            return testStore.dispatch(userActions.addUser(newUser)).then(() => {
+                expect(testStore.getActions()).toStrictEqual(expectedActions);
+            });
+
+        });
+
+    });
+
+    describe('State', () => {
+
+        beforeEach(() => {
+            moxios.install();
+        });
+
+        afterEach(() => {
+            moxios.uninstall();
+        });
+
+        it('should update store correctly in success case', () => {
+            const testStore = createTestStore({
+                user: {
+                    ...testInitialStateWithUsers
+                }
+            });
+
+            moxios.wait(() => {
+                const request = moxios.requests.mostRecent();
+                request.respondWith({
+                    status: 200,
+                    user: newUser
+                });
+            });
+
+            return testStore.dispatch(userActions.addUser(newUser)).then(() => {
+                const newState = testStore.getState();
+                expect(newState.user.users).toHaveLength(testUserArray.length + 1);
             });
         });
 
